@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visionary Tejas · Digital Service Agency</title>
+  <!-- Font Awesome 6 (free) for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #f9fafc;
+      color: #1e1e2f;
+      line-height: 1.5;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* dark mode class */
+    body.dark {
+      background: #121212;
+      color: #ededee;
+    }
+    body.dark .card,
+    body.dark .skill-item,
+    body.dark .contact-card {
+      background: #1f1f2e;
+      color: #ddd;
+    }
+    body.dark header {
+      background: #1a1a2a;
+    }
+    body.dark .menu a {
+      color: #ccc;
+    }
+
+    /* container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* header */
+    header {
+      background: #ffffffcc;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: background 0.2s;
+    }
+    body.dark header {
+      background: #1a1a2ad9;
+      border-bottom: 1px solid #2d2d44;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    /* left side: agency name + circular photo */
+    .brand-circle {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-text {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #131b2e, #2a3f5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    body.dark .brand-text {
+      background: linear-gradient(145deg, #b1c9f0, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .circle-photo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #2563eb;
+      box-shadow: 0 6px 14px rgba(37,99,235,0.2);
+      background: #fff;
+    }
+    /* fallback if image missing — monogram */
+    .circle-photo-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.4rem;
+      background: #2563eb;
+      color: white;
+    }
+
+    /* menu */
+    .menu {
+      display: flex;
+      gap: 28px;
+      font-weight: 500;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #1e293b;
+      font-size: 1rem;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+    .menu a:hover {
+      border-bottom-color: #2563eb;
+      color: #2563eb;
+    }
+    body.dark .menu a {
+      color: #ddd;
+    }
+    body.dark .menu a:hover {
+      color: #90b4ff;
+      border-bottom-color: #90b4ff;
+    }
+
+    /* dark mode toggle */
+    .theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #1e293b;
+      margin-left: 10px;
+    }
+    body.dark .theme-toggle {
+      color: #ffdb70;
+    }
+
+    /* hero */
+    .hero {
+      padding: 60px 0 30px;
+    }
+    .hero-name {
+      font-size: 3.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+    .hero-name span {
+      background: linear-gradient(125deg, #2563eb, #7b4aff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #475569;
+      margin-bottom: 30px;
+      border-left: 5px solid #2563eb;
+      padding-left: 20px;
+    }
+    body.dark .hero-title {
+      color: #b0b8c5;
+    }
+
+    /* skills grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+    .skill-item {
+      background: white;
+      padding: 24px 12px;
+      border-radius: 28px;
+      box-shadow: 0 12px 28px -8px rgba(0,0,0,0.06);
+      text-align: center;
+      transition: transform 0.15s, box-shadow 0.2s;
+      border: 1px solid #f0f0fa;
+    }
+    .skill-item i {
+      font-size: 2.4rem;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+    .skill-item h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .skill-item:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 30px -8px rgba(37,99,235,0.15);
+    }
+    body.dark .skill-item {
+      border-color: #2d2d44;
+    }
+
+    /* packages preview / services */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 650;
+      margin: 50px 0 30px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .card {
+      background: white;
+      padding: 28px 20px;
+      border-radius: 30px;
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      border: 1px solid #ffffff50;
+    }
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+    .card p {
+      color: #4b5563;
+      margin: 12px 0 20px;
+    }
+    body.dark .card p {
+      color: #b6b9c7;
+    }
+    .badge {
+      background: #2563eb10;
+      color: #2563eb;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 40px;
+      display: inline-block;
+      border: 1px solid #2563eb20;
+    }
+    body.dark .badge {
+      background: #1e3a8a30;
+      color: #a5c9ff;
+    }
+
+    /* contact section */
+    .contact-section {
+      background: #f1f5f9;
+      border-radius: 48px;
+      padding: 50px 40px;
+      margin: 70px 0 40px;
+      transition: background 0.2s;
+    }
+    body.dark .contact-section {
+      background: #1b1b2c;
+    }
+    .contact-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .contact-left h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin: 24px 0;
+    }
+    .contact-icon {
+      width: 54px;
+      height: 54px;
+      background: #2563eb;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.8rem;
+    }
+    .contact-details a {
+      text-decoration: none;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #1e293b;
+      transition: 0.2s;
+      display: block;
+    }
+    .contact-details a:hover {
+      color: #2563eb;
+      transform: translateX(4px);
+    }
+    body.dark .contact-details a {
+      color: #f0f0fa;
+    }
+    body.dark .contact-details a:hover {
+      color: #90b4ff;
+    }
+
+    /* footer */
+    footer {
+      padding: 30px 0 40px;
+      border-top: 1px solid #dbe1ea;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    body.dark footer {
+      border-top-color: #2d2d44;
+    }
+    .social a {
+      color: #1e293b;
+      font-size: 1.8rem;
+      margin-left: 20px;
+      transition: 0.2s;
+    }
+    .social a:hover {
+      color: #2563eb;
+    }
+    body.dark .social a {
+      color: #ccc;
+    }
+
+    /* typing effect container */
+    #typing {
+      font-weight: 500;
+      background: #2563eb10;
+      padding: 4px 12px;
+      border-radius: 50px;
+      display: inline-block;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      .header-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+      }
+      .hero-name {
+        font-size: 2.5rem;
+      }
+      .contact-flex {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-row">
+      <!-- left side: Digital Service Agency + circular photo/logo -->
+      <div class="brand-circle">
+        <!-- circular image (replace with your own) 
+             using fontawesome as fallback if image missing -->
+        <img src="https://placehold.co/400x400/2563eb/white?text=V" alt="Visionary Tejas" class="circle-photo" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'50\' fill=\'%232563eb\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'50\' text-anchor=\'middle\' fill=\'white\' dy=\'.3em\'%3EVT%3C/text%3E%3C/svg%3E';">
+        <span class="brand-text">Digital Service Agency</span>
+      </div>
+
+      <!-- menu items + theme toggle -->
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <nav class="menu">
+          <a href="#">Home</a>
+          <a href="#services">Services</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+          <a href="#packages">Packages</a>
+        </nav>
+        <button class="theme-toggle" id="themeToggle" aria-label="dark mode toggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- hero -->
+    <section class="hero">
+      <h1 class="hero-name">👋 I'm <span>Visionary Tejas</span></h1>
+      <div class="hero-title">
+        <span id="typing"></span>   <!-- typing effect appears here -->
+      </div>
+      <p style="font-size: 1.2rem; max-width: 700px;">Digital entrepreneur · Website development · Brand strategist · Instagram growth & automation</p>
+    </section>
+
+    <!-- skills section -->
+    <section id="skills">
+      <h2 class="section-title">⚡ my superpowers</h2>
+      <div class="skills-grid">
+        <div class="skill-item"><i class="fas fa-code"></i><h3>Web Dev</h3></div>
+        <div class="skill-item"><i class="fas fa-paint-brush"></i><h3>Branding</h3></div>
+        <div class="skill-item"><i class="fab fa-instagram"></i><h3>Instagram Growth</h3></div>
+        <div class="skill-item"><i class="fas fa-robot"></i><h3>Automation</h3></div>
+        <div class="skill-item"><i class="fas fa-mobile-alt"></i><h3>UI/UX</h3></div>
+      </div>
+    </section>
+
+    <!-- packages / services (optional) -->
+    <section id="packages">
+      <h2 class="section-title">📦 packages & offers</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>website pro</h3>
+          <p>Custom dev, SEO, 5 pages</p>
+          <span class="badge">starting @ ₹9,999</span>
+        </div>
+        <div class="card">
+          <h3>brand identity</h3>
+          <p>logo, strategy, social kit</p>
+          <span class="badge">custom quote</span>
+        </div>
+        <div class="card">
+          <h3>ig growth system</h3>
+          <p>content + automation + dm</p>
+          <span class="badge">₹6,499 /mo</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- contact section (with clickable number & insta) -->
+    <section id="contact" class="contact-section">
+      <div class="contact-flex">
+        <div class="contact-left">
+          <h2>📬 Let's connect</h2>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="contact-details">
+              <a href="tel:9329892342">+91 93298 92342</a>
+              <span style="font-size: 0.9rem; opacity: 0.8;">click to call directly</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+            <div class="contact-details">
+              <a href="https://instagram.com/_visionary_tejas" target="_blank">@_visionary_tejas</a>
+              <span style="font-size: 0.9rem; opacity: 0.8;">open instagram</span>
+            </div>
+          </div>
+          <!-- optional whatsapp -->
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="contact-details">
+              <a href="https://wa.me/919329892342" target="_blank">WhatsApp chat</a>
+            </div>
+          </div>
+        </div>
+        <!-- small visual: work with me button (call to action) -->
+        <div style="text-align: center;">
+          <a href="#" style="background: #2563eb; color: white; padding: 18px 40px; border-radius: 60px; text-decoration: none; font-weight: 600; font-size: 1.2rem; display: inline-block; box-shadow: 0 16px 24px -8px #2563eb80;">✨ Work With Me</a>
+          <p style="margin-top: 20px;"><i class="fas fa-circle" style="color: #22c55e; font-size: 0.7rem;"></i> available for freelance</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div>© 2026 Digital Service Agency · Founder: Visionary Tejas</div>
+    <div class="social">
+      <a href="https://instagram.com/_visionary_tejas" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </footer>
+
+  <!-- javascript: dark mode + typing effect + smooth menu scroll -->
+  <script>
+    (function() {
+      // ----- DARK MODE -----
+      const toggle = document.getElementById('themeToggle');
+      const body = document.body;
+      const moonIcon = '<i class="fas fa-moon"></i>';
+      const sunIcon = '<i class="fas fa-sun"></i>';
+
+      // check local storage
+      if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark');
+        toggle.innerHTML = sunIcon;
+      } else {
+        toggle.innerHTML = moonIcon;
+      }
+
+      toggle.addEventListener('click', () => {
+        if (body.classList.contains('dark')) {
+          body.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+          toggle.innerHTML = moonIcon;
+        } else {
+          body.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+          toggle.innerHTML = sunIcon;
+        }
+      });
+
+      // ----- TYPING EFFECT (hero title) -----
+      const typingSpan = document.getElementById('typing');
+      const phrases = [
+        'website developer',
+        'brand strategist',
+        'instagram growth hacker',
+        'automation architect',
+        'UI/UX visionary'
+      ];
+      let i = 0;
+      let j = 0;
+      let currentPhrase = [];
+      let isDeleting = false;
+      let isEnd = false;
+
+      function typeLoop() {
+        isEnd = false;
+        if (i < phrases.length) {
+          if (!isDeleting && j <= phrases[i].length) {
+            currentPhrase = phrases[i].substring(0, j);
+            typingSpan.textContent = currentPhrase;
+            j++;
+          }
+
+          if (isDeleting && j > 0) {
+            currentPhrase = phrases[i].substring(0, j - 1);
+            typingSpan.textContent = currentPhrase;
+            j--;
+          }
+
+          if (j == phrases[i].length && !isDeleting) {
+            isEnd = true;
+            isDeleting = true;
+          }
+
+          if (isDeleting && j === 0) {
+            currentPhrase = '';
+            typingSpan.textContent = currentPhrase;
+            isDeleting = false;
+            i++;
+            if (i === phrases.length) i = 0;
+          }
+        }
+        setTimeout(typeLoop, isEnd ? 1200 : 100);
+      }
+      typeLoop();
+
+      // ----- optional: close menu when click (for demo) -----
+      // smooth scroll for anchor links (optional)
+      document.querySelectorAll('.menu a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+
+  <!-- extra fallback for image: it's already there -->
+</body>
+</html>
